@@ -1,0 +1,2 @@
+# Persistence
+AOF records mutating commands as RESP. `always` fsyncs each write, `everysec` uses a periodic fsync task, and `no` leaves flush timing to the OS until shutdown. Recovery ignores only an incomplete final frame and rejects malformed complete content. Snapshots encode binary keys/values with base64 and absolute wall-clock expiry, fsync a temporary file, then atomically rename it. SAVE and graceful snapshot rotate AOF after snapshot success so pre-snapshot operations are not replayed again.

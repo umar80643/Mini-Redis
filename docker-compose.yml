@@ -1,0 +1,28 @@
+services:
+  miniredis:
+    build: .
+    ports: ["6379:6379", "9121:9121"]
+    volumes: ["miniredis-data:/app/data"]
+    environment:
+      AOF_ENABLED: "true"
+      SNAPSHOT_ENABLED: "true"
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    ports: ["9090:9090"]
+    volumes: ["./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro"]
+    depends_on: [miniredis]
+  grafana:
+    image: grafana/grafana:11.2.2
+    ports: ["3000:3000"]
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/provisioning/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on: [prometheus]
+  redis-reference:
+    image: redis:7.4-alpine
+    profiles: ["benchmark"]
+    ports: ["6380:6379"]
+volumes:
+  miniredis-data: {}
+  grafana-data: {}

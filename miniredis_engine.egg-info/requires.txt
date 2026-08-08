@@ -1,0 +1,11 @@
+prometheus-client>=0.20
+pydantic>=2.7
+pydantic-settings>=2.2
+
+[dev]
+pytest>=8
+pytest-asyncio>=0.23
+hypothesis>=6
+ruff>=0.5
+black>=24
+mypy>=1.10

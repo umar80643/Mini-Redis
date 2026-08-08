@@ -1,0 +1,2 @@
+# RESP Protocol
+MiniRedis implements RESP simple strings, errors, integers, bulk strings/null bulk strings, and arrays. Client commands must be arrays of non-null bulk strings. Parsing is incremental and binary-safe, supports multiple frames per receive buffer, and returns `NeedMoreData` for partial frames. Limits reject oversized bulk strings and arrays. TCP packet boundaries are never treated as command boundaries.

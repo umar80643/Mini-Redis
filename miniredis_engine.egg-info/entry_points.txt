@@ -1,0 +1,2 @@
+[console_scripts]
+miniredis = miniredis.main:main

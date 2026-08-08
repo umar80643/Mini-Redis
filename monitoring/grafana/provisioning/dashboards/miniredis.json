@@ -1,0 +1,11 @@
+{"annotations":{"list":[]},"editable":true,"panels":[
+{"type":"timeseries","title":"Commands/sec","targets":[{"expr":"sum(rate(miniredis_commands_total[1m]))"}],"gridPos":{"h":8,"w":8,"x":0,"y":0}},
+{"type":"timeseries","title":"GET/SET throughput","targets":[{"expr":"sum by (command) (rate(miniredis_commands_total{command=~\"GET|SET\"}[1m]))"}],"gridPos":{"h":8,"w":8,"x":8,"y":0}},
+{"type":"timeseries","title":"p95 command latency","targets":[{"expr":"histogram_quantile(0.95, sum by (le,command) (rate(miniredis_command_duration_seconds_bucket[5m])))"}],"gridPos":{"h":8,"w":8,"x":16,"y":0}},
+{"type":"stat","title":"Connected clients","targets":[{"expr":"miniredis_connected_clients"}],"gridPos":{"h":6,"w":6,"x":0,"y":8}},
+{"type":"timeseries","title":"Memory usage","targets":[{"expr":"miniredis_memory_bytes"}],"gridPos":{"h":6,"w":6,"x":6,"y":8}},
+{"type":"stat","title":"Keys","targets":[{"expr":"miniredis_keys"}],"gridPos":{"h":6,"w":6,"x":12,"y":8}},
+{"type":"stat","title":"Expired / Evicted","targets":[{"expr":"miniredis_expired_keys_total"},{"expr":"miniredis_evicted_keys_total"}],"gridPos":{"h":6,"w":6,"x":18,"y":8}},
+{"type":"timeseries","title":"Protocol errors / AOF writes","targets":[{"expr":"rate(miniredis_protocol_errors_total[5m])"},{"expr":"rate(miniredis_aof_writes_total[5m])"}],"gridPos":{"h":7,"w":12,"x":0,"y":14}},
+{"type":"timeseries","title":"Pub/Sub messages","targets":[{"expr":"rate(miniredis_pubsub_messages_total[5m])"}],"gridPos":{"h":7,"w":12,"x":12,"y":14}}
+],"schemaVersion":39,"tags":["miniredis"],"templating":{"list":[]},"time":{"from":"now-15m","to":"now"},"title":"MiniRedis Overview","uid":"miniredis-overview","version":1}
